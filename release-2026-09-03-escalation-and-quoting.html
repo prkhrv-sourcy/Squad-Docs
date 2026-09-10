@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Release — Escalation handover and quoting fixes</title>
+  <style>
+    :root {
+      --paper: #f4f1e9;
+      --surface: #fbfaf6;
+      --ink: #18201e;
+      --muted: #66706b;
+      --rule: #d8d5cc;
+      --deep: #133f3a;
+      --deep-2: #0d2f2c;
+      --green: #167b52;
+      --green-soft: #dcecdf;
+      --blue: #286a83;
+      --blue-soft: #dcebf0;
+      --amber: #9a6515;
+      --amber-soft: #f2e5c7;
+      --red: #9a3930;
+      --red-soft: #f2dedb;
+      --serif: Charter, "Iowan Old Style", "Source Serif 4", ui-serif, Georgia, serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #121614;
+        --surface: #191f1d;
+        --ink: #e9ece9;
+        --muted: #9aa5a0;
+        --rule: #2c3634;
+        --deep: #8fd6b6;
+        --deep-2: #0b1211;
+        --green: #6fc596;
+        --green-soft: #172c22;
+        --blue: #79b8cf;
+        --blue-soft: #14262d;
+        --amber: #d5a45c;
+        --amber-soft: #2c2417;
+        --red: #dd8a80;
+        --red-soft: #2e1d1b;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--paper); color: var(--ink); }
+    body { margin: 0; font: 17px/1.6 var(--serif); background: var(--paper); }
+    code { font: .88em/1.5 var(--mono); background: rgba(19, 63, 58, .07); padding: .08rem .3rem; border-radius: 3px; }
+    @media (prefers-color-scheme: dark) { code { background: rgba(143, 214, 182, .12); } }
+
+    .shell { width: min(940px, calc(100% - 40px)); margin-inline: auto; }
+
+    .masthead { background: var(--deep-2); color: #f7f5ed; border-bottom: 5px solid #59b77f; }
+    .masthead .shell { padding: 30px 0 36px; }
+    .brand { font: 700 .78rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; opacity: .75; }
+    h1 { font: 700 2.1rem/1.1 var(--sans); letter-spacing: -.02em; margin: 14px 0 10px; }
+    .sub { font: 400 1.05rem/1.5 var(--serif); opacity: .84; max-width: 56ch; margin: 0; }
+
+    main { padding: 40px 0 72px; }
+    section { margin: 0 0 44px; }
+    h2 { font: 700 1.35rem/1.2 var(--sans); letter-spacing: -.01em; margin: 0 0 4px; }
+    .intro { color: var(--muted); margin: 0 0 18px; font-size: .96rem; }
+
+    .pair {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--blue);
+      padding: 14px 18px;
+      margin: 0 0 10px;
+    }
+    .pair p { margin: 0; }
+    .pair .i { font: 700 .74rem/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
+    .pair .f { font: 700 .74rem/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--green); }
+    .pair .row { display: grid; grid-template-columns: 52px 1fr; gap: 6px 12px; align-items: baseline; }
+    .pair .row + .row { margin-top: 7px; }
+
+    figure { margin: 0 0 18px; background: var(--surface); border: 1px solid var(--rule); padding: 20px 18px 12px; overflow-x: auto; }
+    figure svg { display: block; width: 100%; min-width: 520px; height: auto; color: var(--ink); }
+    figcaption { font-size: .88rem; color: var(--muted); margin-top: 10px; }
+
+    .b       { fill: var(--surface); stroke: var(--rule); stroke-width: 1.3; }
+    .b-blue  { fill: var(--blue-soft);  stroke: var(--blue);  stroke-width: 1.5; }
+    .b-green { fill: var(--green-soft); stroke: var(--green); stroke-width: 1.5; }
+    .b-red   { fill: var(--red-soft);   stroke: var(--red);   stroke-width: 1.5; }
+    .b-amber { fill: var(--amber-soft); stroke: var(--amber); stroke-width: 1.5; }
+    .t   { font: 500 13.5px var(--sans); fill: var(--ink); }
+    .ts  { font: 400 12px var(--sans); fill: var(--muted); }
+    .tl  { font: 700 11.5px var(--sans); fill: var(--muted); letter-spacing: .08em; }
+    .ln  { stroke: currentColor; stroke-width: 1.5; fill: none; }
+    .ln-red { stroke: var(--red); stroke-width: 1.6; fill: none; stroke-dasharray: 6 4; }
+
+    ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; }
+    ol.steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--rule); }
+    ol.steps li:last-child { border-bottom: none; }
+    ol.steps li::before { content: counter(s); font: 700 .95rem var(--sans); color: var(--green); }
+
+    .note { background: var(--amber-soft); border-left: 4px solid var(--amber); padding: 14px 18px; margin: 0 0 18px; }
+    .note p { margin: 0; }
+    .note strong { font-family: var(--sans); font-size: .93rem; }
+
+    footer { border-top: 1px solid var(--rule); padding: 20px 0 40px; color: var(--muted); font-size: .88rem; }
+  </style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell">
+    <div class="brand">S-Quad · Release</div>
+    <h1>Escalation handover and quoting fixes</h1>
+    <p class="sub">3 September 2026 · 27 changes · 9 database updates. The agent can now ask a person for help, and eleven quoting problems from August are fixed.</p>
+  </div>
+</header>
+
+<main class="shell">
+
+  <nav aria-label="Documentation"><a href="index.html" style="color: var(--deep);">← All release notes</a></nav>
+
+  <!-- ─── 1 ─── -->
+  <section>
+    <h2>The agent can ask for help</h2>
+    <p class="intro">New. It was the main piece of work.</p>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>The agent got stuck and had no way to ask. Growth typed free text that the agent could not act on.</p></div>
+      <div class="row"><span class="f">Fix</span><p>The agent lists what a person can actually do. Growth picks one. The agent tries it and reports back.</p></div>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 880 220" role="img" aria-label="The agent gets stuck, lists the choices, a person picks one, the agent tries it, and either the request carries on or it comes back with the reason.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon points="0,1 10,5 0,9" fill="currentColor"></polygon>
+          </marker>
+          <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon points="0,1 10,5 0,9" fill="var(--red)"></polygon>
+          </marker>
+        </defs>
+
+        <rect class="b-blue" x="10" y="30" width="160" height="52" rx="3"></rect>
+        <text class="t" x="90" y="52" text-anchor="middle">Agent is stuck</text>
+        <text class="ts" x="90" y="70" text-anchor="middle">1 option, 3 needed</text>
+
+        <line class="ln" x1="170" y1="56" x2="204" y2="56" marker-end="url(#ar)"></line>
+
+        <rect class="b-blue" x="210" y="30" width="160" height="52" rx="3"></rect>
+        <text class="t" x="290" y="52" text-anchor="middle">It lists the choices</text>
+        <text class="ts" x="290" y="70" text-anchor="middle">only ones it can do</text>
+
+        <line class="ln" x1="370" y1="56" x2="404" y2="56" marker-end="url(#ar)"></line>
+
+        <rect class="b-amber" x="410" y="30" width="160" height="52" rx="3"></rect>
+        <text class="t" x="490" y="52" text-anchor="middle">Growth picks one</text>
+        <text class="ts" x="490" y="70" text-anchor="middle">on the request page</text>
+
+        <line class="ln" x1="570" y1="56" x2="604" y2="56" marker-end="url(#ar)"></line>
+
+        <rect class="b-blue" x="610" y="30" width="160" height="52" rx="3"></rect>
+        <text class="t" x="690" y="52" text-anchor="middle">Agent tries it</text>
+        <text class="ts" x="690" y="70" text-anchor="middle">within seconds</text>
+
+        <line class="ln" x1="690" y1="82" x2="690" y2="112" marker-end="url(#ar)"></line>
+
+        <rect class="b-green" x="610" y="118" width="160" height="52" rx="3"></rect>
+        <text class="t" x="690" y="140" text-anchor="middle">Worked</text>
+        <text class="ts" x="690" y="158" text-anchor="middle">request carries on</text>
+
+        <path class="ln-red" d="M 610 144 L 490 144 L 490 88" marker-end="url(#ar-red)"></path>
+        <text class="tl" x="500" y="118">DIDN'T WORK — BACK TO GROWTH, WITH THE REASON</text>
+      </svg>
+      <figcaption>The dotted line matters most: when something fails, the question comes back with the reason instead of going quiet.</figcaption>
+    </figure>
+
+    <div class="note">
+      <p><strong>Off in production.</strong> Nothing writes to the new records there yet, so the panel will not appear. Turning it on is a separate job — see Rollout.</p>
+    </div>
+  </section>
+
+  <!-- ─── 2 ─── -->
+  <section>
+    <h2>Quoting</h2>
+    <p class="intro">Eleven items Growth reported between 10 and 31 August.</p>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>FOB quotations could not be published.</p></div>
+      <div class="row"><span class="f">Fix</span><p>Two rules disagreed about whether carton sizes were needed. Now there is one rule, and FOB does not need them.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>The Products tab blocked options for missing carton sizes.</p></div>
+      <div class="row"><span class="f">Fix</span><p>That screen runs before anyone picks FOB or DDP, so it cannot know if a carton will ever be priced. It no longer asks.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>Air or sea was asked in several places, with different numbers.</p></div>
+      <div class="row"><span class="f">Fix</span><p>One question, two prices, then one summary: freight, last mile, customs, total, and the weight it is charged on. The number shown is the number used.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>Growth could not say whether they had measured a product or a carton.</p></div>
+      <div class="row"><span class="f">Fix</span><p>A choice on the line, and one place that reads it. Before, four parts of the system guessed separately — including the one that publishes, which could publish different numbers than the screen showed.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>The quotation stage was asked after the items it applies to were chosen.</p></div>
+      <div class="row"><span class="f">Fix</span><p>Moved to the Products tab, next to the list it describes.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>MOQ showed the ordered quantity.</p></div>
+      <div class="row"><span class="f">Fix</span><p>They are two numbers again. The supplier's minimum was being overwritten by the chosen price break.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>The customer document ignored choices Growth had made.</p></div>
+      <div class="row"><span class="f">Fix</span><p>Main image, customer-facing name, billing company, exchange rate and its date all print what was chosen. They were honoured in the preview and dropped at publish.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>An older version of a quotation could not be brought back.</p></div>
+      <div class="row"><span class="f">Fix</span><p>It can, and it shows every field it will change — old value to new — before anything is written.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>Customers and contacts could not be created or corrected in Squad.</p></div>
+      <div class="row"><span class="f">Fix</span><p>They can. "New company" now appears below the search results, not above them, so nobody creates a duplicate of the company they just searched for.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>Saving a validated option failed with an error about the packing field.</p></div>
+      <div class="row"><span class="f">Fix</span><p>The screen wrote a field the server did not accept, so the whole save was rejected. Both sides agree now, and a test fails if they drift apart again.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>Smaller things: publishing mid-run gave no warning; searching an SR number did not put it first; the "agents unreachable" message had no retry; options quoted at different quantities looked comparable; long option lists could not be filtered.</p></div>
+      <div class="row"><span class="f">Fix</span><p>All five done.</p></div>
+    </div>
+  </section>
+
+  <!-- ─── 3 ─── -->
+  <section>
+    <h2>Found while building</h2>
+    <p class="intro">Problems that would not have been visible until they bit.</p>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>The same job could be done twice — contacting the same suppliers twice.</p></div>
+      <div class="row"><span class="f">Fix</span><p>The agent held a job for one hour, but this job waits on suppliers for longer. It now says "still going" and keeps its hold.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>A customer requirement could be loosened without anyone choosing it.</p></div>
+      <div class="row"><span class="f">Fix</span><p>The list of requirements came up with the first one already selected. Nothing is submitted now until a choice is made.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>A note typed for one choice was submitted under another, unseen.</p></div>
+      <div class="row"><span class="f">Fix</span><p>The note clears when the choice changes.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>Some records could never have been saved — the save would simply fail.</p></div>
+      <div class="row"><span class="f">Fix</span><p>There was a limit on how many notes were kept but not on their size. There is now a size limit too.</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>Safety checks were being skipped without anyone noticing.</p></div>
+      <div class="row"><span class="f">Fix</span><p>Comparisons against a missing value quietly passed instead of failing. They are written so a missing value is refused.</p></div>
+    </div>
+  </section>
+
+  <!-- ─── 4 ─── -->
+  <section>
+    <h2>Rollout</h2>
+    <p class="intro">The database updates run first. If one fails, the running app is left alone.</p>
+
+    <figure>
+      <svg viewBox="0 0 880 210" role="img" aria-label="Deploy applies nine database updates and the escalation feature stays off. Turning it on later needs the agent released, credentials set, records copied across, and the switch and worker enabled together.">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon points="0,1 10,5 0,9" fill="currentColor"></polygon>
+          </marker>
+        </defs>
+
+        <text class="tl" x="10" y="20">THIS RELEASE</text>
+        <rect class="b-green" x="10" y="30" width="220" height="70" rx="3"></rect>
+        <text class="t" x="120" y="55" text-anchor="middle">Deploy</text>
+        <text class="ts" x="120" y="73" text-anchor="middle">9 database updates</text>
+        <text class="ts" x="120" y="90" text-anchor="middle">escalations stay off</text>
+
+        <line class="ln" x1="230" y1="65" x2="266" y2="65" marker-end="url(#ar2)"></line>
+
+        <text class="tl" x="280" y="20">LATER, IN ORDER</text>
+        <rect class="b" x="276" y="30" width="140" height="70" rx="3"></rect>
+        <text class="t" x="346" y="60" text-anchor="middle">Release the</text>
+        <text class="t" x="346" y="78" text-anchor="middle">agent side</text>
+
+        <line class="ln" x1="416" y1="65" x2="446" y2="65" marker-end="url(#ar2)"></line>
+
+        <rect class="b" x="456" y="30" width="140" height="70" rx="3"></rect>
+        <text class="t" x="526" y="60" text-anchor="middle">Copy records</text>
+        <text class="t" x="526" y="78" text-anchor="middle">across</text>
+
+        <line class="ln" x1="596" y1="65" x2="626" y2="65" marker-end="url(#ar2)"></line>
+
+        <rect class="b-amber" x="636" y="30" width="234" height="70" rx="3"></rect>
+        <text class="t" x="753" y="55" text-anchor="middle">Switch on — and the worker</text>
+        <text class="ts" x="753" y="75" text-anchor="middle">together, or answers are</text>
+        <text class="ts" x="753" y="92" text-anchor="middle">recorded and never run</text>
+
+        <rect class="b-red" x="10" y="140" width="860" height="52" rx="3"></rect>
+        <text class="t" x="26" y="163">Do not turn the switch on without the worker.</text>
+        <text class="ts" x="26" y="181">Growth's answer would be saved, the request would sit as "being worked on", and nothing would happen.</text>
+      </svg>
+      <figcaption>Copying records across has to come after the deploy, because it needs one of the database updates in this release.</figcaption>
+    </figure>
+
+    <ol class="steps">
+      <li><span>Deploy. The nine database updates run first, and stop the deploy if any fails.</span></li>
+      <li><span>Check the request list still flags escalated requests. It reads both the old and new records during the move.</span></li>
+      <li><span>Check a quotation can be published on FOB, and an older version restored.</span></li>
+    </ol>
+  </section>
+
+  <!-- ─── 5 ─── -->
+  <section>
+    <h2>Also in this release</h2>
+    <div class="pair">
+      <div class="row"><span class="i">Issue</span><p>Squad requests were identified by a bot tag.</p></div>
+      <div class="row"><span class="f">Fix</span><p>They carry the operator's employee id and lane tags instead.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="shell">
+  Written 3 September 2026. Companion documents: <code>docs/escalation-platform-two-table.md</code> for the design, and the release pull request for the change list.
+</footer>
+
+</body>
+</html>

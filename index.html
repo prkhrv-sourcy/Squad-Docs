@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Squad documentation and release notes.">
+  <title>Squad documentation</title>
+  <style>
+    :root { color-scheme: light dark; --paper: #f4f1e9; --ink: #18201e; --muted: #58635e; --rule: #d8d5cc; --link: #136448; }
+    @media (prefers-color-scheme: dark) {
+      :root { --paper: #121614; --ink: #e9ece9; --muted: #a4afa9; --rule: #2c3634; --link: #8fd6b6; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 system-ui, sans-serif; }
+    .shell { width: min(940px, calc(100% - 40px)); margin-inline: auto; }
+    header { background: #0d2f2c; color: #f7f5ed; border-bottom: 5px solid #59b77f; padding: 40px 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.15; letter-spacing: -.03em; }
+    header p { margin: 0; }
+    main { padding: 40px 0 72px; }
+    h2 { font-size: 1.35rem; margin: 0 0 24px; }
+    h3 { font-size: 1.15rem; margin: 8px 0; }
+    a { color: var(--link); text-underline-offset: .2em; }
+    a:focus-visible { outline: 3px solid var(--link); outline-offset: 4px; }
+    article { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 24px 0; }
+    time, article p, footer { color: var(--muted); }
+    article p { margin: 0; max-width: 65ch; }
+    footer { padding-bottom: 32px; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <header><div class="shell">
+    <h1>Squad documentation</h1>
+    <p>Release notes and updates to Squad.</p>
+  </div></header>
+  <main class="shell">
+    <section aria-labelledby="releases">
+      <h2 id="releases">Release notes</h2>
+      <article>
+        <time datetime="2026-09-03">3 September 2026</time>
+        <h3><a href="release-2026-09-03-escalation-and-quoting.html">Escalation handover and quoting fixes</a></h3>
+        <p>Human handover for stuck requests, quoting fixes, and rollout details.</p>
+      </article>
+    </section>
+  </main>
+  <footer class="shell">Squad · <a href="https://github.com/prkhrv-sourcy/Squad-Docs">Documentation repository</a></footer>
+</body>
+</html>
