@@ -17,6 +17,7 @@
     h1 { margin: 0 0 10px; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.15; letter-spacing: -.03em; }
     header p { margin: 0; }
     main { padding: 40px 0 72px; }
+    section + section { margin-top: 40px; }
     h2 { font-size: 1.35rem; margin: 0 0 24px; }
     h3 { font-size: 1.15rem; margin: 8px 0; }
     a { color: var(--link); text-underline-offset: .2em; }
@@ -30,9 +31,17 @@
 <body>
   <header><div class="shell">
     <h1>Squad documentation</h1>
-    <p>Release notes and updates to Squad.</p>
+    <p>API guides, release notes, and updates to Squad.</p>
   </div></header>
   <main class="shell">
+    <section aria-labelledby="guides">
+      <h2 id="guides">API guides</h2>
+      <article>
+        <time datetime="2026-09-10">10 September 2026</time>
+        <h3><a href="squad-api-guide.html">Squad API guide — Authentication and Orders</a></h3>
+        <p>Authentication, seven order endpoints, and copyable cURL examples for integrations.</p>
+      </article>
+    </section>
     <section aria-labelledby="releases">
       <h2 id="releases">Release notes</h2>
       <article>
