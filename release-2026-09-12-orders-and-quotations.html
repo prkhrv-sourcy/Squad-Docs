@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Squad release notes · 12 September 2026</title>
+<style>
+:root{--ink:#272c29;--muted:#626b65;--line:#dcded6;--paper:#fffef9;--accent:#a24728;--green:#275c46;--wash:#edf3ec}
+*{box-sizing:border-box}body{margin:0;background:#f1f0e9;color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1000px;margin:32px auto;padding:42px 52px;background:var(--paper)}.top{display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:750;letter-spacing:-.5px;font-size:21px}.brand span{color:var(--accent)}button{font:inherit;font-size:13px;padding:9px 14px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--ink);cursor:pointer}button:hover{background:var(--wash)}button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.meta{font-size:12px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin:28px 0 8px}h1{font-size:44px;line-height:1.1;letter-spacing:-1.6px;margin:0 0 14px}.intro{font-size:18px;color:var(--muted);max-width:660px;margin:0 0 20px}.status{display:inline-block;font-size:12px;color:var(--green);background:var(--wash);padding:5px 10px;border-radius:3px}.updates{margin-top:30px}.update{display:grid;grid-template-columns:34px 190px minmax(0,1fr);gap:14px;padding:23px 0;border-top:1px solid var(--line);break-inside:avoid}.number{color:var(--accent);font-size:12px;font-weight:700;padding-top:4px}h2{font-size:18px;line-height:1.3;margin:0;letter-spacing:-.2px}p{margin:0 0 8px}p:last-child{margin-bottom:0}ul{margin:0;padding-left:18px}li+li{margin-top:5px}.flow{list-style:none;padding:0;margin:15px 0 0;display:flex;align-items:stretch;gap:22px}.flow li{flex:1;position:relative;background:var(--wash);padding:11px 9px;text-align:center;color:var(--green);font-size:13px;line-height:1.4;margin:0;border:1px solid #dbe4d8;border-radius:4px}.flow li+li:before{content:'→';position:absolute;left:-19px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--muted)}.note{font-size:13px;color:var(--muted);margin-top:10px}.reminders{border-top:2px solid var(--ink);margin-top:7px;padding-top:20px;display:grid;grid-template-columns:224px 1fr;gap:28px}.reminders h2{font-size:16px}.reminders ul{font-size:14px}.reminders li+li{margin-top:8px}footer{border-top:1px solid var(--line);margin-top:28px;padding-top:14px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}a{color:inherit;text-underline-offset:3px}footer p{max-width:550px}.no-print{white-space:nowrap}
+@media(max-width:700px){main{margin:0;padding:26px 22px}h1{font-size:36px}.update{grid-template-columns:25px 1fr;gap:10px;padding:21px 0}.update .body{grid-column:2}.reminders{grid-template-columns:1fr;gap:12px}.flow{gap:18px}.flow li{font-size:12px;padding:9px 5px}.flow li+li:before{left:-16px}footer{display:block}footer p+p{margin-top:10px}}
+@media(max-width:390px){.flow{flex-direction:column;gap:22px}.flow li+li:before{content:'↓';left:50%;top:-19px;transform:translateX(-50%)}.top{align-items:flex-start}.brand{font-size:19px}button{font-size:12px;padding:8px}}
+@media print{@page{size:A4;margin:13mm}body{background:white;font-size:10pt;line-height:1.35}main{padding:0;margin:0;max-width:none}.no-print{display:none}.meta{margin-top:15px;font-size:9pt}h1{font-size:29pt}.intro{font-size:12pt;margin-bottom:12px}.updates{margin-top:18px}.update{grid-template-columns:24px 140px minmax(0,1fr);gap:10px;padding:13px 0}h2{font-size:12pt}.flow{margin-top:9px}.flow li{font-size:9pt;padding:7px 5px}.reminders{grid-template-columns:174px 1fr;gap:10px;padding-top:12px}.reminders ul{font-size:9pt}.reminders h2{font-size:11pt}.note,footer{font-size:8pt}footer{margin-top:16px;padding-top:9px}.status{font-size:8pt}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="top"><div class="brand">S<span>–</span>Quad <span>/</span> Team update</div><button class="no-print" type="button" onclick="window.print()">Print / Save as PDF</button></div>
+<p class="meta">Release notes · 12 September 2026</p>
+<h1>Less re-entry.<br>Clearer quotes and orders.</h1>
+<p class="intro">Manage orders in Squad, reuse sample details and compare delivery options more easily.</p>
+<span class="status">Merged into main · release #184</span>
+</header>
+<div class="updates">
+<section class="update" aria-labelledby="orders">
+<span class="number" aria-hidden="true">01</span><h2 id="orders">Manage orders<br>in Squad</h2>
+<div class="body"><ul><li>Create, view, edit and cancel orders from the Orders screen or a request’s Orders tab.</li><li>Keep several items in one order, each with its own supplier and quantity, plus a shared destination.</li><li>See sample and bulk orders, notes and progress. Conflicting edits prompt you to refresh.</li></ul></div>
+</section>
+<section class="update" aria-labelledby="samples">
+<span class="number" aria-hidden="true">02</span><h2 id="samples">Enter sample<br>details once</h2>
+<div class="body"><p>Sample price and details carry into the sample quotation. Sample quantity and packing stay separate from bulk.</p>
+<ol class="flow" aria-label="Sample quotation flow"><li>Enter sample details</li><li>Create sample quotation</li><li>Review the saved details</li></ol>
+</div>
+</section>
+<section class="update" aria-labelledby="quotes">
+<span class="number" aria-hidden="true">03</span><h2 id="quotes">Clearer product<br>quotations</h2>
+<div class="body"><ul><li>Record prices by quantity, add-on costs and one-time fees separately.</li><li>Show the final product specifications and choose which customer documents to include.</li><li>Get clearer warnings for missing prices and packing details.</li></ul></div>
+</section>
+<section class="update" aria-labelledby="shipping">
+<span class="number" aria-hidden="true">04</span><h2 id="shipping">Compare delivery<br>choices</h2>
+<div class="body"><ul><li>Compare multiple delivery options, each with its own cost and timing.</li><li>Choose single-unit or carton packing separately for sample and bulk shipping estimates.</li><li>Quote timing estimates account for China weekends and holidays.</li></ul></div>
+</section>
+<section class="update" aria-labelledby="addresses">
+<span class="number" aria-hidden="true">05</span><h2 id="addresses">Easier customer<br>and address setup</h2>
+<div class="body"><p>Fixed company creation and addresses being mistaken for city names. Changing your city search clears the old selection.</p>
+<ol class="flow" aria-label="New shipping address flow"><li>Select a city<br>or add a missing one</li><li>Enter the street address</li><li>Save and use the address</li></ol>
+</div>
+</section>
+<section class="update" aria-labelledby="messages">
+<span class="number" aria-hidden="true">06</span><h2 id="messages">Clearer supplier<br>messages</h2>
+<div class="body"><p>Attachment sending works with the updated supplier messaging service. Empty messages are hidden; unavailable older files show a clear resend message.</p></div>
+</section>
+</div>
+<aside class="reminders" aria-labelledby="remember"><h2 id="remember">Before sending a quote</h2><ul><li>Confirm the customer’s delivery choice and add it to the order notes before invoicing. The customer dashboard needs its own update to show every delivery option.</li><li>Upload only documents safe to share publicly. “Include on quotation” controls whether a file appears on the quote, not who can open its link.</li></ul></aside>
+<footer><p>Scope: changes in release #184, including #179–#183 and review fixes.<br>Merged on 12 September 2026. Live deployment has not been verified for these notes.</p><p><a href="https://github.com/Sourcy-Global/S-Quad/pull/184">View release details ↗</a></p></footer>
+</main>
+</body>
+</html>
