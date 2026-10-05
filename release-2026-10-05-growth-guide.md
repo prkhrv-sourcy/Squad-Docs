@@ -64,12 +64,6 @@ Existing Google Sheets are not repaired automatically. The pricing fix applies t
 | What changes | Before | Now |
 |---|---|---|
 | Taking ownership | There was no clear way to claim the help request. | “Take over request” assigns it to you and shows who is handling it. |
-| Several customer changes | Later changes were not clearly shown together. | Each grouped change shows the customer’s words. You can see which changes you are closing. |
-| An impossible request | You had to tell the customer outside this flow. | Use “Tell customer: can’t do”. Review and confirm the message before sending it to their chat. |
-| Two people working | Closing progress and outdated information were unclear. | See who is closing it. Refresh if it changed. A stuck closing attempt can be taken over after five minutes. |
-| Trying again | An older change could make an action look already tried. | “Already tried” follows the relevant customer change. “Find more suppliers” keeps its request-wide limit. |
-
-Open the draft → Edit → Preview & confirm → Customer gets the message. Sending closes the escalation and its grouped changes.
 
 Taking ownership does not pause agents or close the request. “Mark handled” closes the escalation with an internal note; it sends no customer message.
 
@@ -77,6 +71,6 @@ Taking ownership does not pause agents or close the request. “Mark handled” 
 
 Quotation drafts still need Growth review before sending. The guided supplier flow must be enabled for your team.
 
-WhatsApp import and specification-file uploads are not part of this release.
+Grouped customer changes and the “Tell customer: can’t do” action are held for a later release. WhatsApp import and specification-file uploads are also not included.
 
-Source: [PR #290](https://github.com/Sourcy-Global/S-Quad/pull/290), including #289. Reviewed 5 October 2026 at 281d1e4. Contents may change before approval.
+Source: [PR #291](https://github.com/Sourcy-Global/S-Quad/pull/291), excluding #289. Reviewed 5 October 2026 at 537486e. Contents may change before approval.
