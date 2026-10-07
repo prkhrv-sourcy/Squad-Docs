@@ -1,0 +1,28 @@
+Date,SR ID,Quote Status,Fault Location,Reason
+2026-09-29,5055,No quote found,Supplier,Customer answered; supplier says pricing must wait until 8 Oct.
+2026-09-30,5056,No quote found,Growth,Previous sourcing failed; manual takeover has no product options yet.
+2026-09-30,5058,No quote found,Growth,One validated product; customer quote not prepared.
+2026-09-30,5061,No quote found,Review automation · Supplier,Holiday pause: replies unreviewed; one supplier deferred to 8 Oct.
+2026-09-30,5062,No quote found,Review automation · Requirements,Holiday pause; supplier minimum quantities exceed the requested order.
+2026-09-30,5063,No quote found,Growth,No products selected; remaining priced option needs validation.
+2026-10-01,5064,No quote found,Growth · Review automation,Manual takeover; logo and packaging unresolved; review holiday-paused.
+2026-10-01,5065,No quote found,Review automation · Supplier,Holiday pause; contacted suppliers cannot meet several branded-product requirements.
+2026-10-01,5066,No quote found,Growth,Manual request; sourcing not activated and no products added.
+2026-10-01,5067,No quote found,Review automation,Supplier quote received; holiday pause prevents automated review.
+2026-10-01,5068,No quote found,Growth,14 validated options; customer quote not prepared.
+2026-10-01,5069,No quote found,Review automation · Requirements,Holiday pause; fabric weight and label details still needed.
+2026-10-02,5072,Published · not sent,Growth · Status display,Published revision 2 without notification; summary incorrectly says not started.
+2026-10-02,5073,No quote found,Review automation · Supplier,Holiday pause; supplier prices and product photos still pending.
+2026-10-02,5074,No quote found,Review automation · Requirements,Holiday pause; prices use different quantities and fabrics.
+2026-10-02,5075,No quote found,Review automation · Requirements,"Holiday pause; sample kit, packaging and some prices unresolved."
+2026-10-02,5076,No quote found,Review automation · Requirements,"Holiday pause; design, fabric and minimum quantities need confirmation."
+2026-10-02,5077,No quote found,Growth,Seven priced options; only one validated and no quote prepared.
+2026-10-02,5078,No quote found,Growth,Four validated products; two unassigned and no quote prepared.
+2026-10-02,5079,No quote found,Review automation · Requirements,"Holiday pause; printing, setup fees and packaging prices need alignment."
+2026-10-02,5080,No quote found,Review automation · Requirements,Holiday pause; sample vs. bulk scope and motor/battery specs unresolved.
+2026-10-04,5081,No quote found,Review automation · Supplier,"Holiday pause; suppliers offer plastic bodies, but customer requires metal."
+2026-10-04,5082,No quote found,Review automation · Requirements,"Holiday pause; artwork, box and scarf specifications still needed."
+2026-10-04,5083,No quote found,Review automation · Supplier,Holiday pause; bottle options lack required dimensions or finished-product test report.
+2026-10-04,5084,No quote found,Review automation · Supplier,Holiday pause; suppliers cannot meet all customization and test-report requirements.
+2026-10-04,5085,No quote found,Review automation · Supplier,Holiday pause; fabric mismatch and three conversations reached their turn limit.
+2026-10-04,5086,No quote found,Review automation · Supplier,Holiday pause; quoted price is not confirmed for 100 tons and tanker delivery.
